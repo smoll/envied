@@ -17,7 +17,10 @@ class ENVied
     end
 
     def self.load(options = {})
-      envfile = File.expand_path('Envfile')
+      custom = ENV['ENVFILE']
+      default = 'Envfile'
+      path = custom ? "config/envfiles/#{custom}" : default
+      envfile = File.expand_path(path)
       new(options).tap do |v|
         v.instance_eval(File.read(envfile), envfile)
       end
